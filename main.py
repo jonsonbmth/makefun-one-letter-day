@@ -16,8 +16,13 @@ def main():
         "entry must be exactly one uppercase letter"
     output_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(output_dir, exist_ok=True)
-    with open(os.path.join(output_dir, "entry.txt"), "w", encoding="utf-8") as f:
+    entry_path = os.path.join(output_dir, "entry.txt")
+    with open(entry_path, "w", encoding="utf-8") as f:
         f.write(LETTER)
+    # Read back and verify the gate: exactly one character, A-Z.
+    with open(entry_path, "r", encoding="utf-8") as f:
+        written = f.read()
+    assert written == LETTER, "entry.txt must hold exactly the one letter"
     print(LETTER)
 
 
